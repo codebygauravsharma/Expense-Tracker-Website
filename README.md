@@ -1,5 +1,4 @@
-#---
-# Expense Management Website
+Expense Management Website
 
 This is a Django-based web application for managing personal income, expenses, and user preferences. The project is designed to help users track their financial data efficiently, providing a simple and user-friendly interface.
 
