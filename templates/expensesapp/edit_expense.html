@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+<div class="row">
+    <div class="col-md-10">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url "expenses" %}">Expenses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Expenses</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-2">
+        
+    </div>
+</div>
+
+    <div class="card">
+            <form action="{% url "edit_expense" get_expense.id %}" method="post">
+                {% include "partials/_messages.html" %}
+                {% csrf_token %}
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="number" class="form-control form-control-sm" name="amount" value={{get_expense.amount}}>
+                </div>
+                <div class="form-group  mt-2">
+                    <label for="">Description</label>
+                    <input type="text" class="form-control form-control-sm" name="description" value={{get_expense.description}}>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="">Category</label>
+                    <select class="form-control"name="category">
+                        <option selected name="category" value="{{values.category}}">{{values.category}}</option>
+                        {% for category in  categories %}
+                        <option name="category" value="{{category.name}}">{{category.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="">Date of Expense</label>
+                    <input type="date" class="form-control form-control-sm" value="{{values.date|date:"Y-m-d"}}" name="expense_date">
+                </div>
+            </div>
+            <input type="submit" value="UPDATE" class="btn btn-primary btn-primary-sm ml-18" style="margin-left: 18px;">
+        </form>
+        </div>
+</div>
+
+
+
+
+{% endblock %}

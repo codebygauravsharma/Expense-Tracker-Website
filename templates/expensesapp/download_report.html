@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block linkcssfile %}
+<link rel="stylesheet" href="{% static "css/download_expenses_report.css" %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="download-heading">
+    Download Expenses Report
+</h1>
+<div class="download-btn">
+    <a href="{% url "export-csv" %}" class="btn btn-secondary do-btn do-btn1">Export CSV</a>
+    <a href="{% url "export-excel" %}" class="btn btn-secondary do-btn do-btn2">Export EXCEL</a>
+    <a href="{% url "export-pdf" %}" class="btn btn-secondary do-btn do-btn3">Export PDF</a>
+</div>
+{% endblock %}
+

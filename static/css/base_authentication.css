@@ -1,0 +1,15 @@
+.pass-show{
+    float: right;
+    margin: 5px;
+}
+.form-group{
+    margin-top: 10px;
+}
+.card-title h4{
+    text-align: center;
+    margin-top: 20px;
+}
+.btn{
+    width: 100%;
+    margin-top: 10px;
+}

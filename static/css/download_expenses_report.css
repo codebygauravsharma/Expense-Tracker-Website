@@ -1,0 +1,27 @@
+.download-heading{
+    text-align: center;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.download-btn{
+    margin-top:80px; 
+    display:flex;
+    justify-content: space-around;
+}
+.do-btn{
+    padding: 50px;
+    border-radius: 20px;
+    font-size: 20px;
+}
+.do-btn1{
+    background-color: rgb(86, 21, 148);
+}
+.do-btn2{
+    background-color: rgb(8, 129, 8);
+}
+.do-btn3{
+    background-color: rgb(179, 14, 14);
+}
