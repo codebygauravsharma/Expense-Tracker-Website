@@ -1,5 +1,3 @@
-Here’s the updated README to reflect your use of PostgreSQL:
-
 ---
 
 # Expense Management Website
