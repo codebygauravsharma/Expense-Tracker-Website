@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'expenseswebsite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'incomeexpensesdb',
-        'USER':'postgres',
-        'PASSWORD':'sharma123',
+        'NAME':'Add your database name',
+        'USER':'Add your database username',
+        'PASSWORD':'Add your database password',
         'HOST':'localhost',
     }
     # 'default': {
@@ -147,8 +147,8 @@ MESSAGE_TAGS = {
 #email stuff
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'officialgrvknights@gmail.com'
+EMAIL_HOST_USER = 'Add your email id'
 EMAIL_USE_TLS = True
 # DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = 'ojmgdbzvghhheaom'
+EMAIL_HOST_PASSWORD = 'add your app key'
