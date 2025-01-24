@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block linkcssfile %}
+<link rel="stylesheet" href="{% static "css/dashboard.css" %}">
+{% endblock %}
+
+{% block dashboard-heading %}
+<h2 class="chart-heading">Expenses Chart</h2>
+{% endblock %}
+{% block inside-dashboard  %}
+<div class="show-chart">
+    {{ chart_html|safe }}
+</div>
+{% if expenses.count %}
+<div class="app-table">
+    <table id="dashboard-table" class="table table-strippped table-hover">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ex in expenses %}
+            <tr>
+                <td>{{ex.amount}}</td>
+                <td>{{ex.category}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

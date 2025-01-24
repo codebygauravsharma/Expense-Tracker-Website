@@ -13,6 +13,9 @@ from django.template.loader import render_to_string
 from weasyprint import HTML
 import tempfile
 from django.db.models import Sum 
+import plotly.express as px
+import random as rm
+
 # Create your views here.
 
 
@@ -24,7 +27,7 @@ def index(request):
     if show_all:
         page_obj = get_expense
     else:
-        paginator = Paginator(get_expense, 5)
+        paginator = Paginator(get_expense, 10)
         page_number = request.GET.get("page")
         page_obj = Paginator.get_page(paginator, page_number)
     
@@ -210,3 +213,46 @@ def export_pdf(request):
     
     return response
     
+
+def dashboard(request):
+    exp = {}
+   
+    expenses = Expense.objects.filter(owner=request.user)
+    get_category_lst = list(set([cat.category for cat in expenses]))
+
+    for cat in get_category_lst:
+        if cat not in exp.keys():
+            exp[cat] = 0
+        get_amount = [expense.amount for expense in expenses.filter(category = cat)]
+        exp[cat] += sum(get_amount) if get_amount else 0
+
+    data = {
+        "Category" : [i for i in exp.keys()], 
+        "Amount" : [i for i in exp.values()] 
+    }
+
+    # Making a Different types of charts
+
+    rc = rm.randrange(0,3) 
+    match rc:
+        case 0: 
+                fig = px.pie(data, names = 'Category', values = 'Amount')
+        case 1:
+                fig = px.bar(data, x = 'Category', y = 'Amount')
+        case 2: 
+                fig = px.line(data, x = 'Category', y = 'Amount')
+
+    config = {
+            "displaylogo": False, 
+            "showLink": False,
+            "displayModeBar": False,
+            'modeBarButtonsToRemove': ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
+    }
+    chart_html = fig.to_html(full_html=False, config=config)
+
+    context = {
+                "chart_html": chart_html,
+               "expenses":expenses,
+               "rc":rc,
+            }
+    return render(request, "dashboard.html",context)

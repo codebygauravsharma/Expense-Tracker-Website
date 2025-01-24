@@ -1,0 +1,12 @@
+.show-chart{
+    position: absolute;
+    top: 160px;
+    right: 60px;
+    height: 480px;
+    width: 500px;
+}
+#dashboard-table{
+    width: 30%; 
+    margin-left: 60px;
+    margin-top: 50px;
+}
