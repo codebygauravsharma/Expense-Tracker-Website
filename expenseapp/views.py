@@ -15,6 +15,7 @@ import tempfile
 from django.db.models import Sum 
 import plotly.express as px
 import random as rm
+from userincome.models import UserIncome
 
 # Create your views here.
 
@@ -212,12 +213,13 @@ def export_pdf(request):
         response.write(output.read())
     
     return response
-    
+
 
 def dashboard(request):
     exp = {}
    
     expenses = Expense.objects.filter(owner=request.user)
+    expenses_for_table = Expense.objects.filter(owner=request.user)[:10]
     get_category_lst = list(set([cat.category for cat in expenses]))
 
     for cat in get_category_lst:
@@ -253,6 +255,52 @@ def dashboard(request):
     context = {
                 "chart_html": chart_html,
                "expenses":expenses,
+               "expenses_for_table":expenses_for_table,
                "rc":rc,
             }
     return render(request, "dashboard.html",context)
+
+def dashboard_income(request):
+    exp = {}
+   
+    income = UserIncome.objects.filter(owner=request.user)
+    income_for_table = UserIncome.objects.filter(owner=request.user)[:10]
+    get_source_lst = list(set([sou.source for sou in income]))
+
+    for sou in get_source_lst:
+        if sou not in exp.keys():
+            exp[sou] = 0
+        get_amount = [expense.amount for expense in income.filter(source = sou)]
+        exp[sou] += sum(get_amount) if get_amount else 0
+
+    data = {
+        "Source" : [i for i in exp.keys()], 
+        "Amount" : [i for i in exp.values()] 
+    }
+
+    # Making a Different types of charts
+
+    rc = rm.randrange(0,3) 
+    match rc:
+        case 0: 
+                fig = px.pie(data, names = 'Source', values = 'Amount')
+        case 1:
+                fig = px.bar(data, x = 'Source', y = 'Amount')
+        case 2: 
+                fig = px.line(data, x = 'Source', y = 'Amount')
+
+    config = {
+            "displaylogo": False, 
+            "showLink": False,
+            "displayModeBar": False,
+            'modeBarButtonsToRemove': ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d'],
+    }
+    chart_html = fig.to_html(full_html=False, config=config)
+
+    context = {
+                "chart_html": chart_html,
+               "income":income,
+               "income_for_table":income_for_table,
+               "rc":rc,
+            }
+    return render(request, "dashboard_income.html",context)

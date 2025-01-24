@@ -5,26 +5,26 @@
 {% endblock %}
 
 {% block dashboard-heading %}
-<h2 class="chart-heading">Expenses Chart</h2>
+<h2 class="chart-heading">Income Chart</h2>
 {% endblock %}
 {% block inside-dashboard  %}
 <div class="show-chart">
     {{ chart_html|safe }}
 </div>
-{% if expenses.count %}
+{% if income.count %}
 <div class="app-table">
     <table id="dashboard-table" class="table table-strippped table-hover">
         <thead>
             <tr>
                 <th>Amount</th>
-                <th>Category</th>
+                <th>Source</th>
             </tr>
         </thead>
         <tbody>
-            {% for ex in expenses_for_table %}
+            {% for ex in income_for_table %}
             <tr>
                 <td>{{ex.amount}}</td>
-                <td>{{ex.category}}</td>
+                <td>{{ex.source}}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -10,3 +10,6 @@
     margin-left: 60px;
     margin-top: 50px;
 }
+.pagination-container{
+    display: flex;
+}

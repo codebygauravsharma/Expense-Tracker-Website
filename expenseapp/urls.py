@@ -14,5 +14,6 @@ urlpatterns = [
     path('export_excel',views.export_excel, name='export-excel'),
     path('export_pdf',views.export_pdf, name='export-pdf'),
     path('dashboard',views.dashboard, name='dashboard'),
+    path('dashboard_income',views.dashboard_income, name='dashboard_income'),
 
 ]
